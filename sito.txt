@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Sito Neurone - Alessio Tuttolomondo</title>
+    
+    <style>
+        /* Impostazioni globali e colori */
+        :root {
+            --colore-primario: #2c3e50; /* Blu scuro */
+            --colore-secondario: #3498db; /* Blu chiaro */
+            --colore-sfondo: #ecf0f1; /* Grigio chiaro */
+            --colore-testo: #333;
+            --colore-bianco: #ffffff;
+            --colore-acceso: #f1c40f; /* Giallo per lampadina */
+            --colore-spento: #7f8c8d; /* Grigio per lampadina */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--colore-sfondo);
+            color: var(--colore-testo);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--colore-bianco);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        /* --- Navigazione --- */
+        nav {
+            background-color: var(--colore-primario);
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--colore-bianco);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            cursor: pointer; /* Cambia il cursore per indicare che è cliccabile */
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--colore-secondario);
+            border-radius: 5px;
+        }
+
+        /* --- Intestazione e Footer --- */
+        header {
+            background-color: var(--colore-secondario);
+            color: var(--colore-bianco);
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: var(--colore-primario);
+            color: var(--colore-bianco);
+            font-size: 0.9em;
+        }
+        
+        /* --- Logica di visualizzazione Pagine --- */
+        .pagina {
+            display: none; /* Tutte le pagine sono nascoste di default */
+        }
+        
+        .pagina.attiva {
+            display: block; /* Mostra solo la pagina con la classe "attiva" */
+        }
+
+        /* --- Stili Pagina 1: Teoria --- */
+        .teoria-box {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .teoria-box img {
+            max-width: 300px;
+            border-radius: 5px;
+        }
+
+        /* --- Stili Pagina 2: Simulatore --- */
+        .simulatore-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .controlli {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .controlli label {
+            font-weight: bold;
+        }
+
+        .controlli input {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .controlli button {
+            padding: 12px;
+            font-size: 1.1em;
+            font-weight: bold;
+            background-color: var(--colore-secondario);
+            color: var(--colore-bianco);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .controlli button:hover {
+            background-color: #2980b9;
+        }
+
+        .output-zona {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lampadina {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--colore-spento);
+            border: 5px solid #bdc3c7;
+            transition: all 0.3s;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        #lampadina.accesa {
+            background-color: var(--colore-acceso);
+            border-color: #f39c12;
+            box-shadow: 0 0 20px 5px var(--colore-acceso);
+        }
+
+        #stato-neurone {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* --- Stili Pagina 3: Storia --- */
+        .storia-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a id="link-teoria" class="active">Teoria</a>
+        <a id="link-simulatore">Simulatore</a>
+        <a id="link-neuronia">Neuronia</a>
+    </nav>
+
+    <section id="pagina-teoria" class="pagina attiva">
+        <header>
+            <h1>Cos'è un Neurone Artificiale?</h1>
+        </header>
+
+        <div class="container">
+            <h2>Un semplice interruttore intelligente</h2>
+            <p>Immagina un neurone artificiale come un piccolo guardiano davanti a una porta. Il suo compito è decidere se far passare o meno un segnale (accendere una luce).</p>
+            
+            <div class="teoria-box">
+                <div>
+                    <h3>Come funziona?</h3>
+                    <p>Il guardiano (neurone) riceve diversi messaggi (gli **Input**). Ogni messaggio ha un'importanza diversa (il **Peso**).</p>
+                    
+                    <ol>
+                        <li><strong>Input (Ingressi):</strong> Sono i dati che il neurone riceve. Nel nostro caso, saranno due numeri.</li>
+                        <li><strong>Pesi (Weights):</strong> Indicano quanto è importante ciascun input. Un input con peso 2 è più importante di uno con peso 1.</li>
+                        <li><strong>Somma Ponderata:</strong> Il neurone moltiplica ogni input per il suo peso e poi somma tutto. (Input1 * Peso1) + (Input2 * Peso2).</li>
+                        <li><strong>Soglia (Threshold) o Funzione di Attivazione:</strong> È la regola del guardiano. Se la somma totale supera un certo valore (la **Soglia**), il neurone "si attiva" (dice SÌ, accendi la luce). Altrimenti, resta "spento" (dice NO, lascia la luce spenta).</li>
+                    </ol>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="pagina-simulatore" class="pagina">
+        <header>
+            <h1>Il Simulatore di Neurone</h1>
+        </header>
+
+        <div class="container">
+            <h2>La lampadina si accenderà?</h2>
+            <p>Questo neurone è stato "addestrato" con una regola semplice: si attiva solo se la somma dei due input (ponderati) supera il valore **1**.
+            <br> (Peso per Input 1 = 0.5) | (Peso per Input 2 = 0.8)</p>
+
+            <div class="simulatore-grid">
+                
+                <div class="controlli">
+                    <label for="input1">Input 1 (es. 0.5, 1, 2):</label>
+                    <input type="number" id="input1" value="0">
+                    
+                    <label for="input2">Input 2 (es. 0.5, 1, 2):</label>
+                    <input type="number" id="input2" value="0">
+                    
+                    <button id="btn-calcola">Attiva Neurone</button>
+                </div>
+
+                <div class="output-zona">
+                    <div id="lampadina"></div>
+                    <div id="stato-neurone">Stato: Spento</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="pagina-neuronia" class="pagina">
+        <header>
+            <h1>La Città di Neuronia</h1>
+        </header>
+
+        <div class="container">
+            <h2>Una storia di segnali e guardiani</h2>
+            
+            <p>C'era una volta, nel vasto regno del Cervello, una città-fortezza chiamata Neuronia. Neuronia non era una città come le altre: la sua unica funzione era far suonare una grande campana al centro della piazza, ma solo al momento giusto.</p>
+
+            <h3>I Messaggeri (Input)</h3>
+            <p>A guardia della porta della città c'era un vecchio saggio di nome Axon. Axon riceveva continuamente messaggeri (gli **Input**) da due città vicine, "Vista" e "Udito".</p>
+            
+            <h3>Le Tasse (Pesi)</h3>
+            <p>Axon, però, non si fidava di tutti allo stesso modo. Aveva una regola: ogni messaggero doveva pagare una "tassa" per far valere il proprio messaggio. Ai messaggeri di "Udito" chiedeva una tassa più alta (un **Peso** maggiore), perché riteneva i loro messaggi più importanti. Ai messaggeri di "Vista" chiedeva una tassa più bassa (un **Peso** minore).</p>
+            
+            <h3>La Soglia d'Allarme</h3>
+            <p>Axon raccoglieva le tasse (la **Somma Ponderata**) in un grande sacco. Aveva un'unica istruzione dal Re: "Fai suonare la campana solo se il totale nel sacco supera le 10 monete d'oro (la **Soglia**). Se sono 9 o
